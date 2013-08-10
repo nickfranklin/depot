@@ -68,7 +68,7 @@ class ProductsController < ApplicationController
       end
     end
   end
-
+  
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
@@ -78,6 +78,17 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_url }
       format.json { head :no_content }
+    end
+  end
+  
+  
+  #nick added
+  def who_bought
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.atom
+      format.json {render :json => @product.to_json(:include => :orders)}
+      format.html
     end
   end
 end
